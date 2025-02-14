@@ -12,11 +12,11 @@ project_root = os.path.dirname(app_dir)
 # Construct path to data directory
 data_dir = os.path.join(project_root, "data_raw")
 
-# Automatically set the working directory to where this script is located
-script_directory = os.path.dirname(os.path.abspath(__file__))
-os.chdir(script_directory)
-
-print("Working directory set to:", os.getcwd())
+# # Automatically set the working directory to where this script is located
+# script_directory = os.path.dirname(os.path.abspath(__file__))
+# os.chdir(script_directory)
+# 
+# print("Working directory set to:", os.getcwd())
 
 
 # =============================================================================
