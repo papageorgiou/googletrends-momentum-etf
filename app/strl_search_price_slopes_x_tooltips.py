@@ -345,9 +345,11 @@ if page == "Backtest":
         - **Stock Weights for Each Period:** This table shows the allocation weights of stocks in the ETF for each evaluation period.
         
         Data sources:
-        1.Gaps.com/public
-        2.Yahoo Finance
-        3.Google Trends
+          
+        - **Gaps.com/public**
+        - **Yahoo Finance**
+        - **3.Google Trends**
+        
         """
     )
     
