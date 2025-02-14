@@ -340,9 +340,14 @@ if page == "Backtest":
         **Plots Explanation:**
         - **Momentum ETF Index vs Comparison Indices:** This chart shows how the simulated Momentum ETF index (based on cumulative returns)
           compares to the selected comparison indices.
-        - **Evolution of $100K Investment:** This chart simulates how a $100K investment would have grown over time.
+        - **Evolution of USD 100K Investment:**  This chart simulates how a $100K investment would have grown over time.
         - **Overall Stock Contribution:** The table below lists each stock's total contribution to the ETF's growth.
         - **Stock Weights for Each Period:** This table shows the allocation weights of stocks in the ETF for each evaluation period.
+        
+        Data sources:
+        1.Gaps.com/public
+        2.Yahoo Finance
+        3.Google Trends
         """
     )
     
