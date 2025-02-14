@@ -346,9 +346,9 @@ if page == "Backtest":
         
         Data sources:
           
-        - **Gaps.com/public**
-        - **Yahoo Finance**
-        - **3.Google Trends**
+        - **Gaps.com/public** for the listed digital-first startups
+        - **Yahoo Finance**   for stock price information
+        - **Google Trends**   for search interest data
         
         """
     )
