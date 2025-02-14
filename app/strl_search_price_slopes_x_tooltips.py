@@ -330,7 +330,7 @@ comparison_indices = [x.strip() for x in comparison_indices_input.split(",") if 
 # Page 1: Backtest
 # =============================================================================
 if page == "Backtest":
-    st.title("Backtesting the Google Trends Momentum ETF **for fun**")
+    st.title("Backtesting the Google Trends Momentum ETF (for fun!")
     st.markdown(
         """
         This page simulates a **Google Trends Momentum ETF** strategy. The strategy selects stocks based on positive momentum
