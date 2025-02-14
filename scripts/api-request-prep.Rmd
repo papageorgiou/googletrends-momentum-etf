@@ -1,0 +1,114 @@
+---
+title: "trends_OR"
+author: "Alex Papageorgiou"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r}
+library(tidyverse)
+```
+
+
+```{r}
+
+
+terms_list_full <- c("login", "promo", "app", "upgrade", "code", "offer", "price", "pricing", "reviews", "demo", "discount", "coupon", "features", "trial", "buy",  "product launch", "download")
+
+terms_list <- c( "promo",  "pricing", "reviews")
+
+
+tickers <- read_csv("data_raw/seo_companies.csv") %>% janitor::clean_names()
+
+
+new <- tickers %>% mutate(trends_string = map_chr(company_name, function(x) paste(x, terms_list, collapse = " + ")))
+
+```
+
+
+```{r}
+
+
+
+keyword <- tickers %>%  pull(company) %>% unique()
+
+ticker <- tickers %>%  pull(ticker) %>% unique()
+cat = 0
+start_date='2014-01-01'
+end_date = '2024-12-31'
+geo= c('US', "GB")[1]
+
+
+kw_arg_df <- expand_grid(keyword, cat, start_date, end_date, geo) %>% 
+  mutate(ticker_name = ticker) %>% 
+  mutate(iteration = row_number(), total = nrow(.))
+
+write_csv(kw_arg_df, "etf_trends_args_ticker_2014.csv")  # ../ads-api./args_df.csv
+
+
+
+
+```
+
+
+
+
+```{r}
+
+library(tidyverse)
+
+
+kaggle <- read_csv("monthly_search_interest_data_tickers.csv")
+
+kaggle_select <- kaggle %>% 
+  
+  select(year_month= date, search_interest = value, search_term=keyword) %>% 
+  distinct(year_month, search_term, .keep_all=T) %>% 
+  mutate(year_month=lubridate::ceiling_date(year_month,"month")) 
+  
+
+
+```
+
+
+
+```{r}
+
+
+ggplot(kaggle_select, mapping = aes(x=year_month, y=search_interest)) + geom_line(alpha=0.3)+
+  facet_wrap(~search_term, ncol = 3)
+
+ggsave("trends_final.png", width=12, height=100, units="cm")
+
+
+```
+
+# trying to match duoling + etc... with the tickers -- but some are missing...
+
+```{r}
+new_tickers <- tickers %>% select(ticker_symbol) %>% 
+  mutate(tick2  = map(ticker_symbol, function(x) rep(x,108 ))) %>% unnest() %>% select(ticker_symbol)
+
+
+```
+
+
+# visualise prices 
+
+```{r}
+
+library(tidyverse)
+
+
+
+
+
+ggplot(prices_daily, mapping = aes(x=date, y=adjusted)) + geom_line(alpha=0.3)+
+  facet_wrap(~symbol, ncol = 3, scales = "free_y") 
+
+ggsave("all_prices.png", width=12, height=100, units="cm")
+
+
+```
+
+
