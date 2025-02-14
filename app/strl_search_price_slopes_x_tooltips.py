@@ -3,9 +3,14 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import datetime
-
-
 import os
+
+# Get the absolute path to the app directory
+app_dir = os.path.dirname(os.path.abspath(__file__))
+# Go up one level to the project root
+project_root = os.path.dirname(app_dir)
+# Construct path to data directory
+data_dir = os.path.join(project_root, "data_raw")
 
 # Automatically set the working directory to where this script is located
 script_directory = os.path.dirname(os.path.abspath(__file__))
@@ -19,9 +24,10 @@ print("Working directory set to:", os.getcwd())
 # =============================================================================
 @st.cache_data
 def load_data():
-    df_market = pd.read_csv("../data_raw/market_cap_df_all.csv")
-    df_prices = pd.read_csv("../data_raw/prices_daily.csv")
-    df_search = pd.read_csv("../data_raw/monthly_search_interest_data_tickers.csv")
+    """Load and return the market cap, price, and search interest data."""
+    df_market = pd.read_csv(os.path.join(data_dir, "market_cap_df_all.csv"))
+    df_prices = pd.read_csv(os.path.join(data_dir, "prices_daily.csv"))
+    df_search = pd.read_csv(os.path.join(data_dir, "monthly_search_interest_data_tickers.csv"))
     # Standardize search data column names
     df_search.rename(columns={"date": "year_month", "value": "monthly_search_interest"}, inplace=True)
     # Convert dates
@@ -33,8 +39,8 @@ def load_data():
 
 @st.cache_data
 def load_company_names():
-    # Load the updated company file; columns: "ticker" and "company"
-    df_companies = pd.read_csv("../data_raw/seo_tickers_gapsdotcom.csv")
+    """Load and return the company names mapping."""
+    df_companies = pd.read_csv(os.path.join(data_dir, "seo_tickers_gapsdotcom.csv"))
     df_companies["ticker"] = df_companies["ticker"].str.replace(r"^\$", "", regex=True).str.strip().str.upper()
     company_map = dict(zip(df_companies["ticker"], df_companies["company"]))
     return company_map
