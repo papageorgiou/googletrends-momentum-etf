@@ -4,13 +4,23 @@ import numpy as np
 import matplotlib.pyplot as plt
 import datetime
 
+
+import os
+
+# Automatically set the working directory to where this script is located
+script_directory = os.path.dirname(os.path.abspath(__file__))
+os.chdir(script_directory)
+
+print("Working directory set to:", os.getcwd())
+
+
 # =============================================================================
 # Data Loading (cached)
 # =============================================================================
 @st.cache_data
 def load_data():
     df_market = pd.read_csv("../data_raw/market_cap_df_all.csv")
-    df_prices = pd.read_csv("../data_proc/prices_daily.csv")
+    df_prices = pd.read_csv("../data_raw/prices_daily.csv")
     df_search = pd.read_csv("../data_raw/monthly_search_interest_data_tickers.csv")
     # Standardize search data column names
     df_search.rename(columns={"date": "year_month", "value": "monthly_search_interest"}, inplace=True)
@@ -24,7 +34,7 @@ def load_data():
 @st.cache_data
 def load_company_names():
     # Load the updated company file; columns: "ticker" and "company"
-    df_companies = pd.read_csv("data_raw/seo_companies.csv")
+    df_companies = pd.read_csv("../data_raw/seo_tickers_gapsdotcom.csv")
     df_companies["ticker"] = df_companies["ticker"].str.replace(r"^\$", "", regex=True).str.strip().str.upper()
     company_map = dict(zip(df_companies["ticker"], df_companies["company"]))
     return company_map
