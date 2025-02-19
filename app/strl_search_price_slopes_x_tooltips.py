@@ -18,17 +18,9 @@ data_dir = os.path.join(project_root, "data_raw")
 # 
 # print("Working directory set to:", os.getcwd())
 
-hide_streamlit_style = """ <style> #MainMenu {visibility: hidden;} footer {visibility: hidden;} </style> """
+#hide_streamlit_style = """ <style> #MainMenu {visibility: hidden;} footer {visibility: hidden;} </style> """
 
 
-# hide_streamlit_style = """
-#             <style>
-#             [data-testid="stToolbar"] {visibility: hidden !important;}
-#             footer {visibility: hidden !important;}
-#             </style>
-#             """
-
-st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 # =============================================================================
 # Data Loading (cached)
@@ -612,3 +604,11 @@ elif page == "Period Analysis":
             st.pyplot(fig_stock)
 
 
+hide_streamlit_style = """
+            <style>
+            [data-testid="stToolbar"] {visibility: hidden !important;}
+            footer {visibility: hidden !important;}
+            </style>
+            """
+
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
