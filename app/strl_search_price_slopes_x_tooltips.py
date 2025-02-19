@@ -18,6 +18,17 @@ data_dir = os.path.join(project_root, "data_raw")
 # 
 # print("Working directory set to:", os.getcwd())
 
+hide_streamlit_style = """ <style> #MainMenu {visibility: hidden;} footer {visibility: hidden;} </style> """
+
+
+# hide_streamlit_style = """
+#             <style>
+#             [data-testid="stToolbar"] {visibility: hidden !important;}
+#             footer {visibility: hidden !important;}
+#             </style>
+#             """
+
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 # =============================================================================
 # Data Loading (cached)
@@ -330,9 +341,12 @@ comparison_indices = [x.strip() for x in comparison_indices_input.split(",") if 
 # Page 1: Backtest
 # =============================================================================
 if page == "Backtest":
-    st.title("Backtesting the Google Trends Momentum ETF (FOR FUN!)")
+    st.title("Backtesting the Google Trends Momentum ETF")
     st.markdown(
         """
+        
+        **Just an experiment, not financial advice**
+        
         This page simulates a **Google Trends Momentum ETF** strategy. The strategy selects stocks based on positive momentum
         determined from historical data from the prior evaluation period. Depending on your selection method, the momentum
         is measured by either **search interest** or **price trend**. Stocks are then weighted according to your chosen method.
@@ -349,6 +363,8 @@ if page == "Backtest":
         - **Gaps.com/public** for the listed digital-first startups
         - **Yahoo Finance**   for stock price information
         - **Google Trends**   for search interest data
+        
+        Github repo: https://github.com/papageorgiou/googletrends-momentum-etf
         
         """
     )
@@ -594,3 +610,5 @@ elif page == "Period Analysis":
             ax_stock.legend()
             ax_stock.grid(True)
             st.pyplot(fig_stock)
+
+

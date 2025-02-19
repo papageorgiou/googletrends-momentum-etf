@@ -16,7 +16,7 @@ import pandas as pd
 
 
 
-tickers = pd.read_csv("../data_raw/seo_companies.csv")["ticker"].to_list()
+tickers = pd.read_csv("../data_raw/seo_tickers_gapsdotcom.csv")["ticker"].to_list()
 tickers = [ticker[1:] for ticker in tickers]
 tickers.extend(["^GSPC", "^IXIC", "AAPL"])
 
